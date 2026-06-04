@@ -82,6 +82,28 @@ def main():
     except pd.io.sql.DatabaseError:
         print("  09 / 10_grafo_fraude (sem dados — rode importar_grafo_fraude.py)")
 
+    print("\nFIDC MENSAL (dados.cvm.gov.br/dataset/fidc-doc-inf_mensal)\n" + "-" * 70)
+    for nome_csv, sql in [
+        ("11_fidc_pl_mensal.csv",
+         "SELECT * FROM fidc_pl ORDER BY fundo_cnpj, data"),
+        ("12_fidc_carteira_mensal.csv",
+         "SELECT * FROM fidc_carteira ORDER BY fundo_cnpj, data"),
+        ("13_fidc_passivo_mensal.csv",
+         "SELECT * FROM fidc_passivo ORDER BY fundo_cnpj, data"),
+        ("14_fidc_cotistas_por_tipo.csv",
+         "SELECT * FROM fidc_cotistas_tipo ORDER BY fundo_cnpj, data"),
+        ("15_fidc_cotistas_total.csv",
+         "SELECT * FROM fidc_cotistas_total ORDER BY fundo_cnpj, data"),
+        ("16_fidc_cotas_qtd_valor.csv",
+         "SELECT * FROM fidc_cotas ORDER BY fundo_cnpj, data"),
+        ("17_fidc_risco_devedor_scr.csv",
+         "SELECT * FROM fidc_risco_devedor ORDER BY fundo_cnpj, data"),
+    ]:
+        try:
+            export_tabela(con, nome_csv, sql)
+        except pd.io.sql.DatabaseError:
+            print(f"  {nome_csv}  (sem dados — rode coleta.cvm_fidc_inf_mensal)")
+
     print("\nVIEWS LEGIVEIS (com nomes em vez de IDs)\n" + "-" * 70)
 
     export_tabela(con, "view_socio_empresa_data_cargo.csv", """
