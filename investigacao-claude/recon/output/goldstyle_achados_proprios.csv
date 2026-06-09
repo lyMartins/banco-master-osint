@@ -1,0 +1,12 @@
+﻿achado,fonte
+"Ativo subjacente = 18,17 mi ações preferenciais BESC (banco extinto em 2008, incorporado pelo BB)",DF id863753 nota 4
+Cessor original do ativo: Excalibur FIM Crédito Privado (cessão 11/03/2020),DF id863753 base abstenção
+"Laudo HORBIA precifica ativo a R$ 13,78 bi (R$ 758,69/ação) — fundo registra a 10% (R$ 1,36 bi, R$ 75/ação)",DF id863753 base abstenção
+"ABSTENÇÃO DE OPINIÃO do auditor em DOIS exercícios consecutivos (PwC 2021, Baker Tilly 2022)",DF id741894 + id863753
+"Justificativa idêntica: 'não obtivemos evidências apropriadas sobre existência, titularidade, transferência e mensuração'",DF parecer PwC e Baker Tilly
+Auditor mudou de PwC -> Baker Tilly entre os exercicios,DF id741894 vs id863753
+DF de exercício 31/03/2022 só entregue ao FNET em 24/03/2025 — atraso de ~3 anos,Metadado FNET
+"Vendas parciais em 2022-2024 a valores entre R$ 75 e R$ 483,33 por ação (variação 6,4x)",DF id863753 nota 22 referenciada
+Fato Relevante 10/01/2025: REPRECIFICAÇÃO RELEVANTE das Cártulas/BESC — Reag admite valoração inconsistente,FR id816884
+Em 02/09/2024 - uma semana antes da 1a fase da Op. Carbono Oculto - admin transferida da Reag DTVM para Reag Jus Gestao de Ativos Judiciais (subsidiaria),DF id863753 nota 1
+"Trimestral 1T2026 (19/05/2026): TODAS as 16 perguntas obrigatórias respondidas com 'Dada a liquidação, não foi realizada' — fundo efetivamente paralisado",FNET id1199246
