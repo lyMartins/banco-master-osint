@@ -1,0 +1,20 @@
+﻿data,evento,valor_brl,fonte
+2024-05-31,Constituicao como CARRIET INVENTORY FIDC NP,,DF id865183 / FNET id691007
+2024-07-02,AGE de constituicao do fundo entregue ao FNET,,FNET id691007
+2024-07-18,AGE adapta o fundo a Resolucao CVM 175/22,,FNET id701083
+2024-09-27,"Carriet Inventory cede CCB de Lormont (R$ 325,452 mi) pro SDG II",325452000,DF SDG II id963178 / reconstrucao Luan
+2024-11-27,AGE mantem nome CARRIET INVENTORY; aprova reforma do regulamento,,FNET id789348
+2024-12-31,Composicao da carteira fechamento ex 2024:,,DF id865183 nota 6
+2024-12-31,"- CCBs R$ 20,518 mi",20518000,DF id865183
+2024-12-31,"- Debentures R$ 469,390 mi",469390000,DF id865183
+2024-12-31,"- CRIs R$ 24,388 mi",24388000,DF id865183
+2024-12-31,"- Outros recebiveis R$ 543,818 mi (R$ 13,784 mi vencidos)",543818000,DF id865183
+2024-12-31,"Total direitos creditorios R$ 1,058 bi",1058114000,DF id865183
+2024-12-31,FIP Hans II R$ 70 mi (cota de fundo de participacoes),70000000,DF id865183
+2025-01-23,AGE renomeia CARRIET INVENTORY -> SCARLET FIDC NP; mesma data troca gestora pra Reag Jus,,FNET id824327 + id824330
+2025-03-26,Taticca emite parecer COM OPINIAO LIMPA sobre DF 2024 (sem ressalvas),,DF id865183 parecer
+2026-01,Reag DTVM (admin) liquidada extrajudicialmente pelo BC,,materia Imirante / fato publico
+2026-03-04,Daniel Vorcaro preso (Operacao Compliance Zero),,materia Imirante / fato publico
+2026-04,"Informe mensal abr/2026: PL R$ 2,706 bi; 6 cotistas; carteira R$ 2,206 bi",2706331000,FNET id1185251 (XML)
+2026-04,"Composicao abr/2026: direitos cred R$ 1,732 bi + acoes judiciais R$ 304 mi + precatorios R$ 269 mi + cotas FIDC R$ 361 mi",,FNET id1185251
+2026-05-19,"Trimestral 1T2026: 16 campos respondidos 'Dada a liquidacao, nao foi realizada' - fundo paralisado",,FNET id1199327

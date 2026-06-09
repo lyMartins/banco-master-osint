@@ -1,0 +1,12 @@
+﻿afirmacao_materia,valor_citado,status,valor_reconstruido,fonte
+Existencia do Scarlet FIDC,-,CONFIRMADO+,CNPJ 55.344.996/0001-44 (ex-CARRIET INVENTORY ate 23/01/2025) - CONFIRMADO + AMPLIADO,FNET + DF id865183 + Regulamento id824330
+Administrado pela Reag,-,CONFIRMADO,"Admin: Reag DTVM (34.829.992/0001-86 = CBSF, MESMA do SDG II e Gold Style); Gestora: ate 23/01/2025 Reag Trust Adm Recursos, depois Reag Jus Gestao de Ativos Judiciais",DF id865183 + Reg id824330
+"Master recebeu/aportou ~R$ 2,5 bi","R$ 2,5 bi",COMPATIVEL,"Informe mensal abr/2026: PL R$ 2,706 bi; carteira R$ 2,206 bi - BATE no agregado",FNET id1185251
+Fundo onde Master e cotista principal,-,COMPATIVEL,"Informe mensal mostra apenas 6 cotistas (2 bancos comerciais + 1 fundo + 3 outros fundos), FUNDO EXCLUSIVO + COTISTA VINCULADO - consistente com 'cotista principal' Master",FNET id1185251
+Reag liquidada pelo BC em janeiro/2026,janeiro/2026,CONFIRMADO,Confirmado por trimestral 1T2026: TODOS os 16 campos respondidos 'Dada a liquidacao',FNET id1199327
+"R$ 12,2 bi aplicados pelo Master+Vorcaro em fundos (2017-2025)","R$ 12,2 bi",NAO RECONSTRUIVEL,Nao reconstruivel via DF (agregado da Receita Federal); fora do escopo da DF de um fundo individual,-
+44% dos recursos pra fundos Reag,44%,NAO RECONSTRUIVEL,Nao reconstruivel via DF; agregado da Receita,-
+184 contas em 67 fundos diferentes,184/67,NAO RECONSTRUIVEL,Nao reconstruivel via DF,-
+"Master sacou R$ 6,8 bi do agregado","R$ 6,8 bi",NAO RECONSTRUIVEL,Nao reconstruivel via DF,-
+Vorcaro retirou R$ 581 mi,R$ 581 mi,NAO RECONSTRUIVEL,Nao reconstruivel via DF,-
+Vorcaro preso em marco/2026,marco/2026,FATO PUBLICO,Fato publico,-
