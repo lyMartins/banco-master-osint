@@ -24,3 +24,5 @@ RELATORIO.md
 GLOSSARIO.md
 CONSULTAS.md
 
+*.db
+coleta/data/cvm_fidc_mensal/
