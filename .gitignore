@@ -9,6 +9,7 @@ data/fnet_docs/
 data/*.zip
 *.html
 !pitch.html
+!investigacao-claude/recon/output/*.html
 .venv/
 __pycache__/
 *.pyc
