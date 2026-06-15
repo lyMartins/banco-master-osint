@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #1a1a2e;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+<div style="position:fixed; top:10px; left:10px; background:rgba(26,26,46,0.92);
+            color:#EEE; padding:14px 18px; border-radius:8px; font-family:Arial,sans-serif;
+            font-size:13px; border:1px solid #555; max-width:340px; z-index:9999;">
+  <div style="font-size:16px; font-weight:bold; margin-bottom:6px; color:#FFD700;">
+    SDG II FIDC - reconstrucao do esquema
+  </div>
+  <div style="font-size:11px; color:#AAA; margin-bottom:10px;">
+    Fonte: DF auditada FNET id 963178 (Luan, PR #2) + achados proprios
+  </div>
+  <div style="display:grid; grid-template-columns:18px auto; gap:4px 8px; align-items:center;">
+    <span style="background:#FFD700; width:14px; height:14px; border-radius:50%;"></span><span>Fundo-alvo (SDG II)</span>
+    <span style="background:#E53935; width:14px; height:14px; border-radius:50%;"></span><span>Banco Master</span>
+    <span style="background:#8B0000; width:14px; height:14px; border-radius:50%;"></span><span>Lormont (devedor central)</span>
+    <span style="background:#FF8C00; width:14px; height:14px; border-radius:50%;"></span><span>FIDC cessor</span>
+    <span style="background:#00ACC1; width:14px; height:14px; border-radius:50%;"></span><span>Achado proprio (Carriet=Scarlet)</span>
+    <span style="background:#9C27B0; width:14px; height:14px; border-radius:50%;"></span><span>Cotista</span>
+    <span style="background:#EC407A; width:14px; height:14px; border-radius:50%;"></span><span>Pessoa</span>
+    <span style="background:#1E88E5; width:14px; height:14px; border-radius:50%;"></span><span>Admin / Gestor (Reag/CBSF)</span>
+    <span style="background:#43A047; width:14px; height:14px; border-radius:50%;"></span><span>Empresa cedente</span>
+    <span style="background:#BDBDBD; width:14px; height:14px; border-radius:50%;"></span><span>Nao confirmado em DF</span>
+  </div>
+  <div style="font-size:11px; color:#AAA; margin-top:10px; line-height:1.4;">
+    Espessura da aresta = valor. Passe o mouse nos nos para ver fonte (DF id, valor, data).
+  </div>
+</div>
+
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderWidth": 2, "color": "#FFD700", "font": {"color": "#FFFFFF"}, "id": "SDG2", "label": "SDG II FIDC NP\nR$ 5,455 bi (dez/2025)", "shape": "dot", "size": 60, "title": "SDG II Fundo de Investimento em Direitos Creditorios Nao Padronizados\nCNPJ 46.909.301/0001-33\nAtivo dez/2025: R$ 5,455 bi (DF FNET id 963178)\n2 cotistas (Anna + nao identificado)\nAUDITOR: ABSTENCAO DE OPINIAO\n62% dos direitos creditorios sem lastro comprovado"}, {"borderWidth": 2, "color": "#E53935", "font": {"color": "#FFFFFF"}, "id": "MASTER", "label": "Banco Master S.A.", "shape": "dot", "size": 50, "title": "CNPJ 33.923.798/0001-00\nCedeu direto ao SDG II: R$ 1,232 bi\nLiquidado pelo BC em 18/11/2025"}, {"borderWidth": 2, "color": "#8B0000", "font": {"color": "#FFFFFF"}, "id": "LORMONT", "label": "Lormont Participacoes\n(Nelson Tanure)", "shape": "dot", "size": 55, "title": "CNPJ 34.263.138/0001-03\nDevedor em 6 CCBs cedidas ao SDG II = R$ 597 mi\nS\u00f3cio oculto do Master segundo MPF/PF\nMesmo Lormont concentra 97% do FIDC Maranta"}, {"borderWidth": 2, "color": "#43A047", "font": {"color": "#FFFFFF"}, "id": "BANVOX", "label": "Banvox Holding\n(ex-Quadrado)", "shape": "dot", "size": 40, "title": "CNPJ 38.461.854/0001-48\nDebenture 4a emissao R$ 400 mi\nSDG II adquiriu R$ 380,346 mi em 22/11/2023\nMauricio Quadrado eh socio da Trustee DTVM (Carbono Oculto)"}, {"borderWidth": 2, "color": "#43A047", "font": {"color": "#FFFFFF"}, "id": "SUPER", "label": "Super Empreendimentos\n(grupo Vorcaro)", "shape": "dot", "size": 35, "title": "CNPJ 31.446.245/0001-70\nDiretor 2021-2024: Fabiano Zettel (cunhado de Vorcaro)\nCedeu R$ 22,012 mi ao SDG II em 06/03/2023\nRecebeu R$ 180 mi do Gold Style FIDC (materia Imirante)"}, {"borderWidth": 2, "color": "#00ACC1", "font": {"color": "#FFFFFF"}, "id": "CARRIET", "label": "Carriet Inventory FIDC\n= SCARLET FIDC\n(renomeado 23/01/2025)", "shape": "dot", "size": 45, "title": "CNPJ 55.344.996/0001-44\nACHADO PROPRIO: Carriet (DF do SDG II) e Scarlet (materia Imirante 14/04) sao o MESMO fundo\nCedeu CCB Lormont R$ 325,452 mi ao SDG II em 27/09/2024\nMateria 14/04/2026: Receita Federal aponta Scarlet receptor R$ 2,5 bi do Master\nRenomeado em AGE de 23/01/2025 (mesmo ato que trocou gestor pra Reag Jus)"}, {"borderWidth": 2, "color": "#FF8C00", "font": {"color": "#FFFFFF"}, "id": "BROL", "label": "B-ROL FIDC-NP", "shape": "dot", "size": 30, "title": "Cedeu CCB Lormont R$ 41,417 mi (31/12/2024)"}, {"borderWidth": 2, "color": "#FF8C00", "font": {"color": "#FFFFFF"}, "id": "CIBK", "label": "CIB-K FIDC-NP", "shape": "dot", "size": 30, "title": "Cedeu CCB Lormont R$ 40,572 mi (31/12/2024)"}, {"borderWidth": 2, "color": "#FF8C00", "font": {"color": "#FFFFFF"}, "id": "DELREY", "label": "Del Rey FIDC-NP", "shape": "dot", "size": 30, "title": "Cedeu CCB Lormont R$ 43,107 mi (31/12/2024)"}, {"borderWidth": 2, "color": "#FF8C00", "font": {"color": "#FFFFFF"}, "id": "RUNEARD", "label": "Runeard FIDC-NP", "shape": "dot", "size": 30, "title": "Cedeu CCB Lormont R$ 43,953 mi (31/12/2024)"}, {"borderWidth": 2, "color": "#9C27B0", "font": {"color": "#FFFFFF"}, "id": "ANNA", "label": "Anna FIC-FIDC\n(cotista)", "shape": "dot", "size": 40, "title": "CNPJ 53.273.475/0001-18\nPL R$ 15,8 bi (5x maior que SDG II)\nIntegralizou cotas SDG II em 30/09/2024 (cartulas BESC)\n\u0027Hans 95 entra via Anna\u0027 - materia Folha/ICL"}, {"borderWidth": 2, "color": "#BDBDBD", "font": {"color": "#FFFFFF"}, "id": "MKS", "label": "MKS Solucoes (??)\nCotista 2 nao confirmado", "shape": "dot", "size": 30, "title": "NAO CONFIRMADO em fonte publica\nMateria atribui a fonte de inquerito\nDF nao nomeia cotistas; atas falam em \u0027unico Cotista\u0027 generico"}, {"borderWidth": 2, "color": "#EC407A", "font": {"color": "#FFFFFF"}, "id": "HANS95", "label": "Hans 95 FIM IE CP", "shape": "dot", "size": 35, "title": "CNPJ 32.088.041/0001-78\nFI Multimercado investigado em Carbono Oculto\nCotista da Anna; via Anna entra no SDG II\nPL R$ 35 bi em abr/2026 (caiu pra R$ 27 bi em 5 dias)"}, {"borderWidth": 2, "color": "#1E88E5", "font": {"color": "#FFFFFF"}, "id": "REAG_CBSF", "label": "Reag DTVM\n= CBSF DTVM\n(rebranding)", "shape": "dot", "size": 45, "title": "CNPJ 34.829.992/0001-86\nACHADO: mesma entidade aparece como \u0027Reag Trust DTVM\u0027 (registro_fundo)\ne \u0027CBSF DTVM\u0027 (Informe Mensal) - rebranding\nAdministra SDG II + Gold Style + Scarlet/Carriet (3 FIDCs do escandalo)"}, {"borderWidth": 2, "color": "#1E88E5", "font": {"color": "#FFFFFF"}, "id": "REAG_JUS", "label": "Reag Jus\nGestao de Ativos Judiciais", "shape": "dot", "size": 35, "title": "CNPJ 46.356.742/0001-55\nPadrao: assume gestao dos fundos pouco antes de eventos criticos\nGold Style: 02/09/2024 (1 semana antes da Carbono Oculto)\nScarlet/Carriet: 23/01/2025 (mesma AGE da renomeacao)"}, {"borderWidth": 2, "color": "#EC407A", "font": {"color": "#FFFFFF"}, "id": "TANURE", "label": "Nelson Tanure", "shape": "dot", "size": 35, "title": "Apontado MPF/PF como SOCIO OCULTO do Master\nControla Lormont Participacoes\nToffoli bloqueou patrimonio em 06/01/2026"}, {"borderWidth": 2, "color": "#EC407A", "font": {"color": "#FFFFFF"}, "id": "VORCARO", "label": "Daniel Vorcaro", "shape": "dot", "size": 40, "title": "Controlador do Banco Master\nPreso em 04/03/2026 (Operacao Compliance Zero)\nTransferiu R$ 700 mi para Cayman em 2025\nR$ 1,2 bi aportado no Hans II FIP"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "#E53935", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "MASTER", "label": "CCB Lormont\nR$ 102 mi (27/02/2024)", "title": "Cessao direta Master\nValor: R$ 102.4 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#E53935", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "MASTER", "label": "Dir.Cred R$ 193 mi\n(19/12/2024)", "title": "Cessao direta Master\nValor: R$ 192.9 milhoes", "to": "SDG2", "width": 2.315292}, {"arrows": "to", "color": "#E53935", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "MASTER", "label": "Dir.Cred R$ 936 mi\n(19/12/2024)", "title": "Cessao direta Master - bombatica\nValor: R$ 936.2 milhoes", "to": "SDG2", "width": 10}, {"arrows": "to", "color": "#FF8C00", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "CARRIET", "label": "CCB Lormont\nR$ 325 mi (27/09/2024)", "title": "Cessao via Carriet/Scarlet\nValor: R$ 325.5 milhoes", "to": "SDG2", "width": 3.9054239999999996}, {"arrows": "to", "color": "#FF8C00", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "BROL", "label": "CCB Lormont\nR$ 41 mi", "title": "Valor: R$ 41.4 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#FF8C00", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "CIBK", "label": "CCB Lormont\nR$ 41 mi", "title": "Valor: R$ 40.6 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#FF8C00", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "DELREY", "label": "CCB Lormont\nR$ 43 mi", "title": "Valor: R$ 43.1 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#FF8C00", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "RUNEARD", "label": "CCB Lormont\nR$ 44 mi", "title": "Valor: R$ 44.0 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "Master tomou CCB do Lormont", "to": "MASTER", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "", "to": "CARRIET", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "", "to": "BROL", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "", "to": "CIBK", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "", "to": "DELREY", "width": 1.5}, {"arrows": "to", "color": "#8B0000", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "LORMONT", "label": "deve CCB", "title": "", "to": "RUNEARD", "width": 1.5}, {"arrows": "to", "color": "#43A047", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "SUPER", "label": "Dir.Cred R$ 22 mi\n(06/03/2023)", "title": "Valor: R$ 22.0 milhoes", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#43A047", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "BANVOX", "label": "Debenture R$ 380 mi\n(22/11/2023)", "title": "Valor: R$ 380.3 milhoes", "to": "SDG2", "width": 4.564152}, {"arrows": "to", "color": "#9C27B0", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "ANNA", "label": "Cotista\n(integralizou 30/09/2024)", "title": "Cotista confirmado", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#BDBDBD", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "MKS", "label": "Cotista? (nao confirmado)", "title": "Atribuido por materia", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#9C27B0", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "HANS95", "label": "Investe na Anna", "title": "Cadeia de fundos", "to": "ANNA", "width": 1.5}, {"arrows": "to", "color": "#1E88E5", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "REAG_CBSF", "label": "Administra", "title": "Administracao fiduciaria", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#1E88E5", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "REAG_JUS", "label": "Gestor pos-24/03/25", "title": "Padrao de assumir gestao pre-eventos", "to": "SDG2", "width": 1.5}, {"arrows": "to", "color": "#EC407A", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "TANURE", "label": "controla", "title": "", "to": "LORMONT", "width": 1.5}, {"arrows": "to", "color": "#EC407A", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "VORCARO", "label": "controla", "title": "", "to": "MASTER", "width": 1.5}, {"arrows": "to", "color": "#EC407A", "font": {"align": "middle", "color": "#CCCCCC", "size": 10, "strokeWidth": 0}, "from": "VORCARO", "label": "cunhado Zettel diretor\n2021-2024", "title": "Conexao familiar", "to": "SUPER", "width": 1.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"interaction": {"hover": true, "tooltipDelay": 150, "navigationButtons": true, "keyboard": true}, "physics": {"enabled": true, "stabilization": {"iterations": 200}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
